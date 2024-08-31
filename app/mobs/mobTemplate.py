@@ -1,0 +1,2 @@
+class mob():
+    pass

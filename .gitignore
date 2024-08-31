@@ -130,3 +130,6 @@ env/
 # Build directories
 dist/
 build/
+
+# Private playground
+playground/

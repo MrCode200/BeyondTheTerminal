@@ -6,3 +6,7 @@ class entity(ABC):
     def __init__(self, ID :int, hp: int):
         self.ID = ID
         self.hp = hp
+
+    @abstractmethod
+    def movement(self):
+        pass

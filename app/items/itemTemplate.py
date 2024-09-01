@@ -1,8 +1,15 @@
 from abc import ABC, abstractmethod
 
+from app import idGenerator
 
 class Item(ABC):
+    id_generator = idGenerator.sequential_item_id_generator()
+
     @abstractmethod
-    def __init__(self, ID :int, item_type :str = "item"):
-        self._id = ID
+    def __init__(self, item_type :str = "item"):
+        self._id = next(Item.id_generator)
         self.item_type = item_type
+
+    @property
+    def id(self):
+        return self._id

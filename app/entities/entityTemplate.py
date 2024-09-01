@@ -1,10 +1,13 @@
 from abc import ABC, abstractmethod
 
+from app import idGenerator
 
 class Entity(ABC):
+    id_generator = idGenerator.sequential_item_id_generator()
+
     @abstractmethod
-    def __init__(self, ID :int, hp: int):
-        self._id = ID
+    def __init__(self, hp: int):
+        self._id = next(Entity.id_generator)
         self.hp = hp
         self.frame = 0
 

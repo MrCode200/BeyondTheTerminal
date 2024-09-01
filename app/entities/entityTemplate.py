@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class Entity(ABC):
     @abstractmethod
     def __init__(self, ID :int, hp: int):
-        self.ID = ID
+        self._id = ID
         self.hp = hp
         self.frame = 0
 

@@ -12,8 +12,8 @@ FPS = 1/30
 
 worldsize_r = 100
 worldsize_c = 100
-WORLD_HEIGHT = 150
-WORLD_WIDTH = 150
+WORLD_HEIGHT = 100
+WORLD_WIDTH = 300
 
 world = wG.generateWorld(WORLD_HEIGHT, WORLD_WIDTH)
 
@@ -28,9 +28,11 @@ def check_key(stdscr: curses.window):
     try:
         key = stdscr.getkey()
         pE.check_key(key, stdscr, world)
-        # Break if esc was hit
-        if key == 'esc':
-            curses.endwin()
+        # Break if q was hit
+        if key == 'q':
+            gE.clear(stdscr)
+            #doesnt exit
+            exit()
     except:
         pass
 

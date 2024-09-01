@@ -9,6 +9,7 @@ import worldGenerator as wG
 
 run = True
 FPS = 1/30
+
 worldsize_r = 100
 worldsize_c = 100
 WORLD_HEIGHT = 150
@@ -20,6 +21,7 @@ def init_curses(stdscr: curses.window):
     curses.start_color()
     curses.curs_set(0)
     stdscr.nodelay(True)
+    gE.init_graphicsEngine(stdscr)
 
 
 def check_key(stdscr: curses.window):
@@ -38,7 +40,7 @@ def main(stdscr: curses.window):
 
     while True:
         check_key(stdscr)
-        gE.draw_world()
+        gE.draw_world(stdscr, world, pE.player_pos)
         time.sleep(FPS)
 
 

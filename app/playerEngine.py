@@ -1,7 +1,7 @@
 #            [y , x ]
 player_pos = [50, 50]
 
-def check_key(key: str, stdscr: curses.window, world: list[list[int]]):
+def check_key(key: str, stdscr, world: list[list[int]]):
     global player_pos
     old_player_pos = player_pos
 

@@ -4,7 +4,9 @@ def generateWorld(world_height: int, world_width: int):
 
     # Add some objects in the world
     world[5][10] = "o"
-    world[10][20] = "x"
+    world[80][10] = "o"
+    world[50][90] = "o"
+    world[50][50] = "x"
 
     return world
 

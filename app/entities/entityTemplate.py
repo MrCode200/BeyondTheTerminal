@@ -6,7 +6,13 @@ class entity(ABC):
     def __init__(self, ID :int, hp: int):
         self.ID = ID
         self.hp = hp
+        self.frame = 0
+
+    @abstractmethod
+    def map_action_to_frame(self):
+        pass
 
     @abstractmethod
     def movement(self):
-        pass
+        if self.frame >= self.speed:
+            print("movingAction")

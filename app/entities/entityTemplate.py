@@ -19,3 +19,8 @@ class Entity(ABC):
     def movement(self):
         if self.frame >= self.speed:
             print("movingAction")
+
+    @property
+    def id(self):
+        return self._id
+

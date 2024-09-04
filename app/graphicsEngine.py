@@ -39,3 +39,4 @@ def draw_world(stdscr, world: list[list[int]], player_pos: list):
             stdscr.addch(index_row, index_char, char)
 
     refresh(stdscr)
+

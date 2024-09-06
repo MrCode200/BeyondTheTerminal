@@ -4,7 +4,7 @@ import curses
 from curses import wrapper
 
 import graphicsEngine as gE
-from app.player import playerEngine as pE
+from player import playerEngine as pE
 from app import worldGenerator as wG
 
 run = True
@@ -27,7 +27,7 @@ def init_curses(stdscr: curses.window):
 def check_key(stdscr: curses.window):
     try:
         key = stdscr.getkey()
-        pE.check_key(key, stdscr, world)
+        pE.player1.check_key(key, stdscr, world)
         # Break if q was hit
         if key == 'q':
             gE.clear(stdscr)

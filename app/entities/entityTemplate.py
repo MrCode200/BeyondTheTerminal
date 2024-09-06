@@ -11,6 +11,10 @@ class Entity(ABC):
         self.hp = hp
         self.frame = 0
         self.position = [None, None]
+    
+    @property
+    def id(self):
+        return self._id
 
     @abstractmethod
     def map_action_to_frame(self):
@@ -21,6 +25,3 @@ class Entity(ABC):
         if self.frame >= self.speed:
             print("movingAction")
 
-    @property
-    def id(self):
-        return self._id

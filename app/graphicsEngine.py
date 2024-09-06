@@ -30,12 +30,13 @@ def draw_world(stdscr, world: list[list[int]], player_pos: list):
     relative_zero = [max(player_pos[0] - half_y, 0), max(player_pos[1] - half_x, 0)]
 
     # -2 instead of -1 for padding one chr
-    relative_max_y = relative_zero[0] + max_y if relative_zero[0] + max_y <= len(world) - 2 else len(world) - 2
-    relative_max_x = relative_zero[1] + max_x if relative_zero[1] + max_x <= len(world[0]) - 2 else len(world[0]) - 2
+    relative_max_y = relative_zero[0] + max_y if relative_zero[0] + max_y <= len(world)  else len(world)
+    relative_max_x = relative_zero[1] + max_x if relative_zero[1] + max_x <= len(world[0])  else len(world[0])
 
     # Enumirate from world[relative (0,0) to relative (0,0) + max]
     for index_row, row in enumerate(world[relative_zero[0]: relative_max_y]):
         for index_char, char in enumerate(row[relative_zero[1] : relative_max_x]):
             stdscr.addch(index_row, index_char, char)
-            
+
     refresh(stdscr)
+

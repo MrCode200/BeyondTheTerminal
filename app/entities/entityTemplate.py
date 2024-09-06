@@ -10,6 +10,7 @@ class Entity(ABC):
         self._id = next(Entity.id_generator)
         self.hp = hp
         self.frame = 0
+        self.position = [None, None]
 
     @abstractmethod
     def map_action_to_frame(self):
@@ -23,4 +24,3 @@ class Entity(ABC):
     @property
     def id(self):
         return self._id
-

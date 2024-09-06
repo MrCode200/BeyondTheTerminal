@@ -4,8 +4,8 @@ import curses
 from curses import wrapper
 
 import graphicsEngine as gE
-import playerEngine as pE
-import worldGenerator as wG
+from app.player import playerEngine as pE
+from app import worldGenerator as wG
 
 run = True
 FPS = 1/30

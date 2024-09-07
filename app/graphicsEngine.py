@@ -1,5 +1,6 @@
 import time
 
+#just for test
 max_y = max_x = 0
 half_y = half_x = 0
 
@@ -15,13 +16,27 @@ def init_graphicsEngine(stdscr):
     half_y = max_y // 2
     half_x = max_x // 2
 
+
 def refresh(*args):
     for arg in args:
         arg.refresh()
 
+
 def clear(*args):
     for arg in args:
         arg.clear()
+
+
+# Change the player's position in the world
+def update_position_to_world(char: str, old_pos: list[int], new_pos: list[int], world: list[list[str]]):
+    world[old_pos[0]][old_pos[1]] = " "
+    world[new_pos[0]][new_pos[1]] = char
+
+
+def draw_info(stdscr, pos):
+    stdscr.addstr(1, 1, f"Pos : {pos}")
+    refresh(stdscr)
+
 
 def draw_world(stdscr, world: list[list[int]], player_pos: list):
     clear(stdscr)

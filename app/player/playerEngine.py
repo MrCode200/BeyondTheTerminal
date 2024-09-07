@@ -1,4 +1,4 @@
-from playerTemplate import player
+from .playerTemplate import player
 
-player1 = player("Magic", 100, [])
-print(player1.id())
+player1 = player("Magic", 100, [], [50, 50])
+player_list = [player1]

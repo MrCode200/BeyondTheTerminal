@@ -3,12 +3,12 @@ import time
 import curses
 from curses import wrapper
 
-import graphicsEngine as gE
-from player import playerEngine as pE
+from app import graphicsEngine as gE
+from app.player import playerEngine as pE
 from app import worldGenerator as wG
 
 run = True
-FPS = 1/30
+FPS = 1/60
 
 worldsize_r = 100
 worldsize_c = 100
@@ -38,11 +38,14 @@ def check_key(stdscr: curses.window):
 
 
 def main(stdscr: curses.window):
+    print(1)
+
     init_curses(stdscr)
 
     while True:
         check_key(stdscr)
-        gE.draw_world(stdscr, world, pE.player_pos)
+        gE.draw_world(stdscr, world, pE.player1.pos)
+        gE.draw_info(stdscr, pE.player1.pos)
         time.sleep(FPS)
 
 

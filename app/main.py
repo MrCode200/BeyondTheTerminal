@@ -1,49 +1,42 @@
 import time
-import curses
 
+import curses
 from curses import wrapper
 
-# Initialize global variables
-# Constants
-FPS = 1 / 60
+from app import graphicsEngine as gE
+from app.player import playerEngine as pE
+from app import worldGenerator as wG
+from app.fontsAndColors import init_custom_colors
+
+run = True
+FPS = 1/60
+
+worldsize_r = 100
+worldsize_c = 100
 WORLD_HEIGHT = 100
 WORLD_WIDTH = 300
 
-world = None
-pE = None
-gE = None
+world = wG.generateWorld(WORLD_HEIGHT, WORLD_WIDTH)
 
-
-def init_project(stdscr: curses.window):
-    global pE, gE, world
+def init_proj(stdscr: curses.window):
     # Initialize color features of curses
     curses.start_color()
     curses.use_default_colors()
+
     curses.curs_set(0)
     stdscr.nodelay(True)
 
-    # Import modules after initializing curses
-    import app.graphicsEngine as gE_module
-    import app.player.playerEngine as pE_module
-    import app.worldGenerator as wG_module
-
-    # Initialize modules
-    gE = gE_module
-    pE = pE_module
-    world = wG_module.generateWorld(WORLD_HEIGHT, WORLD_WIDTH)
-
-    # Call initialization functions
+    init_custom_colors()
     gE.init_graphicsEngine(stdscr)
-
 
 def check_key(stdscr: curses.window):
     try:
         key = stdscr.getkey()
         pE.player_list[0].check_key(key, stdscr, world)
-        # Break if 'q' was hit
+        # Break if q was hit
         if key == 'q':
             gE.clear(stdscr)
-            # Exit the program
+            #doesnt exit
             exit()
     except:
         pass
@@ -51,7 +44,8 @@ def check_key(stdscr: curses.window):
 
 def main(stdscr: curses.window):
     print(1)
-    init_project(stdscr)
+
+    init_proj(stdscr)
 
     while True:
         check_key(stdscr)
@@ -59,5 +53,5 @@ def main(stdscr: curses.window):
         gE.draw_info(stdscr, pE.player_list[0].pos)
         time.sleep(FPS)
 
-# Run the curses application
+
 wrapper(main)

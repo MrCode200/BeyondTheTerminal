@@ -8,7 +8,7 @@ class player:
         self._id = next(player.id_generator)
         self.name = player_name
         self.pos = starting_pos
-        self.char = "x"
+        self.char = "◓"
         self.hp = starting_hp
         self.inventory = starting_inventory
 

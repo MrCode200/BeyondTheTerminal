@@ -35,7 +35,6 @@ def update_position_to_world(char: str, old_pos: list[int], new_pos: list[int], 
 
 def draw_info(stdscr, pos):
     stdscr.addstr(1, 1, f"Pos : {pos}")
-    refresh(stdscr)
 
 
 def draw_world(stdscr, world: list[list[int]], player_pos: list):
@@ -52,6 +51,3 @@ def draw_world(stdscr, world: list[list[int]], player_pos: list):
     for index_row, row in enumerate(world[relative_zero[0]: relative_max_y]):
         for index_char, char in enumerate(row[relative_zero[1] : relative_max_x]):
             stdscr.addch(index_row, index_char, char)
-
-    refresh(stdscr)
-

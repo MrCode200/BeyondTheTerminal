@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 
-from app import idGenerator
+from app.utils import idGenerator
+
 
 class Item(ABC):
-    id_generator = idGenerator.sequential_item_id_generator()
+    id_generator = idGenerator.sequential_id_generator()
 
     @abstractmethod
     def __init__(self, item_type :str = "item"):

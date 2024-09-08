@@ -2,3 +2,5 @@
 2. create a movable player
 3. finish templates
 4. create heatmap generation(or other kind of procedual generation)
+
+Change in graphicsEngine.py refresh only once

@@ -22,3 +22,5 @@ def init_custom_colors():
 
     # Create Color Constants to access
     DAMAGE_CLR = color_pair(1)
+
+    

@@ -1,3 +1,3 @@
-from .playerTemplate import player
+from .playerTemplate import Player
 
-player_list = [player("Magic", 100, [], [50, 50])]
+player_list = [Player("Magic", 100, [], [50, 50])]

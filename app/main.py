@@ -1,22 +1,17 @@
-import time
-
 import curses
+import time
 from curses import wrapper
 
 from app import graphicsEngine as gE
-from app.player import playerEngine as pE
 from app import worldGenerator as wG
 from app.fontsAndColors import init_custom_colors
+from app.player import playerEngine as pE
 
-run = True
-FPS = 1/60
+from app.constants import WORLD_HEIGHT, WORLD_WIDTH, FPS
 
-worldsize_r = 100
-worldsize_c = 100
-WORLD_HEIGHT = 100
-WORLD_WIDTH = 300
 
 world = wG.generateWorld(WORLD_HEIGHT, WORLD_WIDTH)
+
 
 def init_proj(stdscr: curses.window):
     # Initialize color features of curses
@@ -28,6 +23,7 @@ def init_proj(stdscr: curses.window):
 
     init_custom_colors()
     gE.init_graphicsEngine(stdscr)
+
 
 def check_key(stdscr: curses.window):
     try:
@@ -55,3 +51,4 @@ def main(stdscr: curses.window):
 
 
 wrapper(main)
+

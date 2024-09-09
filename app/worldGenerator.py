@@ -1,5 +1,10 @@
+import random
+
 from app import environmentalObjects
 from app import entities
+
+def set_seed(seed):
+    random.seed(seed)
 
 def generateWorld(world_height: int, world_width: int):
     # Create empty world with height {world_height} and width {world_width}

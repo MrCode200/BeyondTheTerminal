@@ -7,11 +7,12 @@ class Entity(ABC):
     id_generator = idGenerator.sequential_id_generator()
 
     @abstractmethod
-    def __init__(self, hp: int):
+    def __init__(self, hp: int, loot_table: list["item"], position: list[int]):
         self._id = next(Entity.id_generator)
-        self.hp = hp
         self.frame = 0
-        self.position = [None, None]
+        self.position = position
+        self.hp = hp
+        self.loot_table = loot_table
     
     @property
     def id(self):
@@ -23,6 +24,12 @@ class Entity(ABC):
 
     @abstractmethod
     def movement(self):
-        if self.frame >= self.speed:
-            print("movingAction")
+        pass
+
+    @abstractmethod
+    def on_death(self):
+        for item in loot_table:
+            #item.spawn
+            pass
+     
 

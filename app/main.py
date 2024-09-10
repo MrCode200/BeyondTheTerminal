@@ -4,19 +4,19 @@ Main Game Loop Module
 This module is responsible for initializing the game, managing the main loop, and handling player inputs and graphics updates. It integrates various components like graphics, world generation, player movement, and color management using the `curses` library.
 
 **Functions**:
-- **init_proj**: Initializes the game’s curses settings, including terminal display and custom colors.
-- **check_key**: Handles user input, processing player movement and game exit.
-- **main**: The main game loop that continuously updates the game screen and processes player actions.
+    - **init_proj**: Initializes the game’s curses settings, including terminal display and custom colors.
+    - **check_key**: Handles user input, processing player movement and game exit.
+    - **main**: The main game loop that continuously updates the game screen and processes player actions.
 """
 
 import curses
 import time
 from curses import wrapper
 
-from app import graphicsEngine as gE
+from app.graphicsEngine import init_graphicsEngine, draw_world, draw_info
 from app import worldGenerator as wG
 from app.fontsAndColors import init_custom_colors
-from app.player import playerEngine as pE
+from app.player import player_list
 
 from app.constants import WORLD_HEIGHT, WORLD_WIDTH, FPS
 
@@ -40,7 +40,7 @@ def init_proj(stdscr: curses.window):
     stdscr.nodelay(True)
 
     init_custom_colors()
-    gE.init_graphicsEngine(stdscr)
+    init_graphicsEngine(stdscr)
 
 
 def check_key(stdscr: curses.window):
@@ -54,7 +54,7 @@ def check_key(stdscr: curses.window):
     """
     try:
         key = stdscr.getkey()
-        pE.player_list[0].check_key(key, stdscr, world)
+        player_list[0].check_key(key, world)
         # Break if q was hit
         if key == 'q':
             stdscr.clear()
@@ -73,14 +73,12 @@ def main(stdscr: curses.window):
 
     :param stdscr: The standard screen object from the curses library, representing the terminal window.
     """
-    print(1)
-
     init_proj(stdscr)
 
     while True:
         check_key(stdscr)
-        gE.draw_world(stdscr, world, pE.player_list[0].pos)
-        gE.draw_info(stdscr, pE.player_list[0].pos)
+        draw_world(stdscr, world, player_list[0].pos)
+        draw_info(stdscr, player_list[0].pos)
         stdscr.refresh()
         time.sleep(FPS)
 

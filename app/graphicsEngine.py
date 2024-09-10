@@ -1,10 +1,30 @@
-import time
+"""
+Graphics Engine Module
 
-#just for test
+This module handles the graphical representation of the game world, including viewport initialization, player position updates, and world rendering.
+
+**Functions**:
+    - **init_graphicsEngine**: Initializes the graphics engine by retrieving terminal size and calculating viewport dimensions.
+    - **update_position_to_world**: Updates the player's or object's position in the game world.
+    - **draw_info**: Displays the player's stats information on the screen.
+    - **draw_world**: Renders the game world relative to the player's position, adjusting for viewport size.
+
+**Variables**
+    - **max_x**: Players screen length
+    - **max_y**: Players screen height
+    - **half_x**: Players screen length half
+    - **half_y**: Players screen height half
+"""
 max_y = max_x = 0
 half_y = half_x = 0
 
 def init_graphicsEngine(stdscr):
+    """
+    Initialize the graphics engine by retrieving the terminal size and calculating the viewport dimensions based on the terminal size.
+
+    :param stdscr: The standard screen object from the curses library.
+    """
+
     global max_y, max_x
     global half_y, half_x
     # Get terminal size
@@ -17,28 +37,39 @@ def init_graphicsEngine(stdscr):
     half_x = max_x // 2
 
 
-def refresh(*args):
-    for arg in args:
-        arg.refresh()
-
-
-def clear(*args):
-    for arg in args:
-        arg.clear()
-
-
 # Change the player's position in the world
 def update_position_to_world(char: str, old_pos: list[int], new_pos: list[int], world: list[list[str]]):
+    """
+    Change the position of objects in the world.
+
+    :param char: The character representing the objects.
+    :param old_pos: The old position of the objects as a list of two integers [y, x].
+    :param new_pos: The new position of the objects as a list of two integers [y, x].
+    :param world: The game world represented as a 2D list of strings.
+    """
     world[old_pos[0]][old_pos[1]] = " "
     world[new_pos[0]][new_pos[1]] = char
 
 
 def draw_info(stdscr, pos):
+    """
+    Draw the player's stasts information on the screen.
+
+    :param stdscr: The standard screen object from the curses library.
+    :param pos: The current position of the player as a list of two integers [y, x].
+    """
     stdscr.addstr(1, 1, f"Pos : {pos}")
 
 
 def draw_world(stdscr, world: list[list[int]], player_pos: list):
-    clear(stdscr)
+    """
+    Draw the game world on the screen relative to the player's position.
+
+    :param stdscr: The standard screen object from the curses library.
+    :param world: The game world represented as a 2D list of integers.
+    :param player_pos: The current position of the player as a list of two integers [y, x].
+    """
+    stdscr.clear()
 
     # Get the edge value relative to the player and check so it is not less than 0
     relative_zero = [max(player_pos[0] - half_y, 0), max(player_pos[1] - half_x, 0)]

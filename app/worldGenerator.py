@@ -38,4 +38,3 @@ def generateWorld(world_height: int, world_width: int) -> list[list[str]]:
     world[50][50] = "x"
 
     return world
-

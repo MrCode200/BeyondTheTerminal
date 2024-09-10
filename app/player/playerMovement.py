@@ -52,4 +52,6 @@ def move_player(obj, key: str, world: list[list[str]]) -> None:
     obj.pos: list[int] = change_player_position(obj, key)
     obj.pos: list[int] = ensure_bounds(obj.pos, len(world) - 1, len(world[0]) - 1)
 
+    print(old_pos, obj.pos)
+
     update_position_to_world(obj.char, old_pos, obj.pos, world)

@@ -1,7 +1,7 @@
 run = True
-FPS = 0/60
+FPS = 1/60
 
-worldsize_r = 99
-worldsize_c = 99
+PLAYERSCREEN_HEIGHT = 99
+PLAYERSCREEN_WIDTH = 99
 WORLD_HEIGHT = 99
 WORLD_WIDTH = 299

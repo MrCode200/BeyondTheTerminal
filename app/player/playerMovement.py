@@ -42,6 +42,7 @@ def change_player_position(obj: "player", key: str) -> list[int]:
 
 def move_player(obj, key: str, world: list[list[str]]) -> None:
     """
+    Manages player movement by updating position, ensuring it remains within boundaries, and updating the world representation.
 
     :param obj: instance of type player
     :param key: key pressed

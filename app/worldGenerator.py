@@ -6,31 +6,29 @@ This module is responsible for generating the game world and managing randomizat
 **Functions**:
     - **set_seed**: Sets the seed for the random number generator to control the randomness in world generation.
     - **generateWorld**: Generates a 2D game world with given dimensions and places objects at predefined coordinates.
+    - **generate_terrain**: Converts a 2D map of numeric values into a 2D map of terrain types based on predefined probability ranges.
+    - **generate_perlin_noise**: Generates a 2D Perlin noise-based terrain map.
 """
 import random
 
-import noise
-import numpy as np
+from noise import pnoise2
 
-from app import environmentalObjects
-from app import entities
-from app.constants import WORLD_HEIGHT, WORLD_WIDTH, scale, octaves, persistence, lacunarity
-##-----------------------test-------------------------------------------
-terrain_probability_dict: {float | int, str} = {-1: "e", 0.2 : "o", 0.5 : "M", 1 : "#"}
+from app.constants import (WORLD_HEIGHT, WORLD_WIDTH,
+                           terrain_probability_dict, scale, octaves, persistence, lacunarity,
+                           world_seed)
 
-def generate_terrain(world: list[list[str]]):
-    keys = sorted(terrain_probability_dict.keys())
-      # Sort the keys for proper range checking
-    for y in range(len(world)):
-        for x in range(len(world[0])):
-            print(y, x)
+def set_seed(seed: int):
+    global world_seed
+    """
+    Set the seed for the random number generator.
 
-            for i in range(1, len(keys)):
-                if keys[i - 1] < world[y][x] <= keys[i]:
-                    world[y][x] = terrain_probability_dict[keys[i]]
+    :param seed: The seed value to initialize the random number generator.
+    """
+    random.seed(seed)
+    world_seed(seed)
 
 
-def generate_perlin_noise(world: list[list[str]], scale: int, octaves: int, persistence: int, lacunarity: int):
+def generate_perlin_noise(world: list[list[str]], scale: int, octaves: int, persistence: int, lacunarity: int, seed: int):
     """
     Generate a 2D Perlin noise-based terrain map.
     
@@ -42,13 +40,15 @@ def generate_perlin_noise(world: list[list[str]], scale: int, octaves: int, pers
     :param lacunarity: Controls the frequency of octaves.
     :return: A 2D numpy array with normalized Perlin noise values between 0 and 1.
     """
+    print(len(world))
     for y in range(len(world)):
         for x in range(len(world[0])):
-            world[y][x] = noise.pnoise2(x/scale,  # x-coordinate (scaled)
+            world[y][x] = pnoise2(x/scale,  # x-coordinate (scaled)
                                           y/scale,  # y-coordinate (scaled)
                                           octaves=octaves,       # Level of detail
                                           persistence=persistence,  # How persistent details are
-                                          lacunarity=lacunarity)  # Frequency of details
+                                          lacunarity=lacunarity,
+                                          base = seed)  # Frequency of details
 
     #Find min and max values in the 2D array
     min_value = min(min(row) for row in world)
@@ -58,14 +58,26 @@ def generate_perlin_noise(world: list[list[str]], scale: int, octaves: int, pers
     for y in range(len(world)):
         for x in range(len(world[0])):
             world[y][x] = (world[y][x] - min_value) / (max_value - min_value)
-##-------------------------------------------------------------------
-def set_seed(seed: int):
-    """
-    Set the seed for the random number generator.
 
-    :param seed: The seed value to initialize the random number generator.
+
+def generate_terrain(empty_world: list[list[int]]) -> list[list[str]]:
     """
-    random.seed(seed)
+    Converts a 2D map of numeric values into a 2D map of terrain types based on predefined probability ranges.
+
+    :param empty_world: A 2D list of numeric values (floats or ints) representing the raw terrain data.
+    :return: A 2D list of strings representing the terrain types where each cell is replaced by a terrain type from `terrain_probability_dict`.
+    """
+    new_world = [[" " for _ in range(WORLD_WIDTH)] for _ in range(WORLD_HEIGHT)]
+
+    keys = sorted(terrain_probability_dict.keys())
+   # Sort the keys for proper range checking
+    for i in range(1, len(keys)):
+        for y in range(len(empty_world)):
+            for x in range(len(empty_world[0])):
+                if keys[i - 1] < empty_world[y][x] <= keys[i]:
+                    new_world[y][x] = terrain_probability_dict[keys[i]]
+
+    return new_world
 
 
 def generateWorld() -> list[list[str]]:
@@ -76,10 +88,10 @@ def generateWorld() -> list[list[str]]:
     :param world_width: The width of the world.
     :return: A 2D list representing the generated world with objects placed at specific coordinates.
     """
-    # Create empty world with height {world_height} and width {world_width}
-    world = [[" " for _ in range(WORLD_HEIGHT)] for _ in range(WORLD_WIDTH)]
+    # Create empty world with height {world_width} and width {world_height}
+    world = [[" " for _ in range(WORLD_WIDTH)] for _ in range(WORLD_HEIGHT)]
 
     generate_perlin_noise(world=world, scale=scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
-    generate_terrain(world=world)
+    world = generate_terrain(empty_world=world)
 
     return world

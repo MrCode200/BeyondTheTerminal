@@ -17,6 +17,7 @@ from app.constants import (WORLD_HEIGHT, WORLD_WIDTH,
                            terrain_probability_dict, scale, octaves, persistence, lacunarity,
                            world_seed)
 
+
 def set_seed(seed: int):
     global world_seed
     """
@@ -24,8 +25,8 @@ def set_seed(seed: int):
 
     :param seed: The seed value to initialize the random number generator.
     """
-    random.seed(seed)
-    world_seed(seed)
+    world_seed = seed
+    random.seed(world_seed)
 
 
 def generate_perlin_noise(world: list[list[str]], scale: int, octaves: int, persistence: int, lacunarity: int, seed: int):
@@ -91,7 +92,7 @@ def generateWorld() -> list[list[str]]:
     # Create empty world with height {world_width} and width {world_height}
     world = [[" " for _ in range(WORLD_WIDTH)] for _ in range(WORLD_HEIGHT)]
 
-    generate_perlin_noise(world=world, scale=scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
+    generate_perlin_noise(world=world, scale=scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity, seed=world_seed)
     world = generate_terrain(empty_world=world)
 
     return world

@@ -18,17 +18,6 @@ from app.constants import (WORLD_HEIGHT, WORLD_WIDTH,
                            world_seed)
 
 
-def set_seed(seed: int):
-    global world_seed
-    """
-    Set the seed for the random number generator.
-
-    :param seed: The seed value to initialize the random number generator.
-    """
-    world_seed = seed
-    random.seed(world_seed)
-
-
 def generate_perlin_noise(world: list[list[str]], scale: int, octaves: int, persistence: int, lacunarity: int, seed: int):
     """
     Generate a 2D Perlin noise-based terrain map.

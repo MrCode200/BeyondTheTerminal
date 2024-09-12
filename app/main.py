@@ -55,6 +55,7 @@ def check_key(stdscr: curses.window):
     try:
         key = stdscr.getkey()
         player_list[0].check_key(key, world)
+
         # Break if q was hit
         if key == 'q':
             stdscr.clear()

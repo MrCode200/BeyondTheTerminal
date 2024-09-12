@@ -18,9 +18,9 @@ from app import worldGenerator as wG
 from app.fontsAndColors import init_custom_colors
 from app.player import player_list
 
-from app.constants import WORLD_HEIGHT, WORLD_WIDTH, FPS
+from app.constants import FPS
 
-world = wG.generateWorld(WORLD_HEIGHT, WORLD_WIDTH)
+world = wG.generateWorld()
 
 
 def init_proj(stdscr: curses.window):
